@@ -4,18 +4,38 @@
   "main": "index.ts",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "server": "node backend/server.js",
+    "adb:reverse": "adb reverse tcp:3000 tcp:3000 && adb reverse tcp:8081 tcp:8081 && adb reverse --list",
+    "adb:reverse:all": "powershell -NoProfile -Command \"$devices = (adb devices | Select-String '\\tdevice$' | ForEach-Object { ($_ -split '\\s+')[0] }); if (-not $devices) { throw 'No adb devices found.' }; foreach ($d in $devices) { adb -s $d reverse tcp:3000 tcp:3000; adb -s $d reverse tcp:8081 tcp:8081 }; foreach ($d in $devices) { Write-Host ('-- ' + $d + ' --'); adb -s $d reverse --list }\""
   },
   "dependencies": {
+    "@nozbe/watermelondb": "^0.28.0",
+    "@react-native-community/netinfo": "11.4.1",
+    "@react-navigation/native": "^7.1.28",
+    "@react-navigation/native-stack": "^7.13.0",
+    "@reduxjs/toolkit": "^2.11.2",
+    "@shopify/flash-list": "2.0.2",
     "expo": "~54.0.33",
+    "expo-build-properties": "~1.0.10",
     "expo-status-bar": "~3.0.9",
     "react": "19.1.0",
-    "react-native": "0.81.5"
+    "react-native": "0.81.5",
+    "react-native-gesture-handler": "~2.28.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-reanimated": "~4.1.1",
+    "react-native-safe-area-context": "~5.6.0",
+    "react-native-screens": "~4.16.0",
+    "react-redux": "^9.2.0",
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.29.0",
     "@types/react": "~19.1.0",
+    "babel-preset-expo": "^54.0.10",
     "typescript": "~5.9.2"
   },
   "private": true
